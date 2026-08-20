@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>飞书 AI & CodeM · 产品、套餐、费用与实际工作应用梳理</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#070b14; --panel:rgba(15,22,38,.72); --line:rgba(80,120,200,.22);
+    --text:#e6edf7; --muted:#8a97ad; --brand:#5b8cff; --brand2:#7ee0ff;
+    --green:#3ddc97; --amber:#ffb547; --red:#ff6b6b; --purple:#b794ff;
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
+  .bg{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .bg::before{content:"";position:absolute;inset:0;background:radial-gradient(1200px 600px at 15% 8%,rgba(91,140,255,.18),transparent 60%),radial-gradient(900px 500px at 88% 22%,rgba(126,224,255,.12),transparent 60%),radial-gradient(1000px 700px at 50% 95%,rgba(183,148,255,.10),transparent 60%)}
+  .bg::after{content:"";position:absolute;inset:0;opacity:.35;background-image:linear-gradient(rgba(80,120,200,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(80,120,200,.08) 1px,transparent 1px);background-size:42px 42px;mask-image:radial-gradient(ellipse at center,#000 55%,transparent 100%)}
+  .wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 28px}
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);background:rgba(7,11,20,.72);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;gap:12px;padding:13px 0;flex-wrap:wrap}
+  .logo{font-weight:800;font-size:15px;background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent;margin-right:4px}
+  .nav a{color:var(--muted);text-decoration:none;font-size:12.5px;padding:6px 9px;border-radius:8px;transition:.2s;white-space:nowrap}
+  .nav a:hover{color:var(--text);background:rgba(91,140,255,.14)}
+  .nav .tag{margin-left:auto;font-size:11px;color:var(--muted);border:1px solid var(--line);padding:4px 9px;border-radius:20px}
+  section{padding:48px 0 6px;scroll-margin-top:60px}
+  .eyebrow{font-size:11.5px;letter-spacing:3px;color:var(--brand2);text-transform:uppercase;font-weight:700}
+  h1.hero{font-size:clamp(30px,4vw,50px);font-weight:900;line-height:1.1;margin:11px 0 13px}
+  h1.hero span{background:linear-gradient(90deg,var(--brand),var(--brand2) 60%,var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .subtitle{color:var(--muted);font-size:15.5px;max-width:780px}
+  h2.sec{font-size:clamp(22px,2.6vw,31px);font-weight:900;margin:5px 0 7px}
+  h3{font-size:16.5px;font-weight:800;margin:16px 0 7px;color:var(--brand2)}
+  p.lead{color:var(--muted);max-width:840px;margin-bottom:14px;font-size:14px}
+  .gradeline{height:3px;width:60px;border-radius:3px;background:linear-gradient(90deg,var(--brand),var(--brand2));margin:5px 0 20px}
+  .grid{display:grid;gap:16px}
+  .cards3{grid-template-columns:repeat(3,1fr)}
+  .cards2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:900px){.cards3,.cards2{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:20px;backdrop-filter:blur(6px);transition:.25s}
+  .card:hover{border-color:rgba(91,140,255,.45);transform:translateY(-2px)}
+  .card h3{margin-top:0;font-size:16.5px}
+  .card p{color:var(--muted);font-size:13.5px}
+  .card .big{font-size:21px;font-weight:900;background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .module{margin:20px 0}
+  .mod-head{display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px 19px;user-select:none}
+  .mod-head h3{margin:0;font-size:17px}
+  .mod-head .toggle{color:var(--brand);font-weight:800;font-size:18px;transition:.25s}
+  .mod-body{display:block;margin-top:13px}
+  .module.collapsed .mod-body{display:none}
+  .module.collapsed .mod-head .toggle{transform:rotate(-90deg)}
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:rgba(10,15,26,.6)}
+  table{width:100%;border-collapse:collapse;min-width:780px;font-size:13px}
+  th{background:rgba(91,140,255,.12);color:var(--brand2);text-align:left;padding:10px 11px;font-weight:800;position:sticky;top:0;white-space:nowrap}
+  td{padding:9px 11px;border-top:1px solid var(--line);vertical-align:top}
+  tr:hover td{background:rgba(91,140,255,.05)}
+  .ok{color:var(--green);font-weight:800}
+  .cond{color:var(--amber);font-weight:800}
+  .extra{color:var(--purple);font-weight:800}
+  .no{color:var(--red);font-weight:800}
+  .q{color:var(--muted);font-weight:800}
+  .src{font-size:10.5px;color:var(--brand);text-decoration:none;border-bottom:1px dashed rgba(91,140,255,.5)}
+  .src:hover{color:var(--brand2)}
+  .filter{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px;align-items:center}
+  .filter .lbl{font-size:11.5px;color:var(--muted);margin-right:3px}
+  .chip{padding:6px 13px;border-radius:20px;border:1px solid var(--line);background:rgba(15,22,38,.6);color:var(--muted);cursor:pointer;font-size:12.5px;transition:.2s;user-select:none}
+  .chip:hover{color:var(--text);border-color:rgba(91,140,255,.5)}
+  .chip.active{background:linear-gradient(90deg,var(--brand),var(--brand2));color:#07101e;border-color:transparent;font-weight:800}
+  .tree{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 26px;font-family:"SF Mono",Menlo,Consolas,monospace;font-size:13.5px;line-height:2;white-space:pre;overflow-x:auto}
+  .tree .hl{color:var(--brand2);font-weight:800}
+  .tree .dim{color:var(--muted)}
+  .flow{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:13px 0}
+  .flow .step{background:rgba(91,140,255,.12);border:1px solid rgba(91,140,255,.35);border-radius:12px;padding:10px 14px;font-size:13px;font-weight:700;text-align:center;min-width:118px}
+  .flow .arrow{color:var(--brand);font-weight:900;font-size:19px}
+  @media(max-width:700px){.flow .arrow{display:none}}
+  .badge{display:inline-block;font-size:10px;padding:3px 7px;border-radius:20px;font-weight:800;margin-left:5px;vertical-align:middle;white-space:nowrap}
+  .b-green{background:rgba(61,220,151,.16);color:var(--green);border:1px solid rgba(61,220,151,.35)}
+  .b-yellow{background:rgba(255,181,71,.14);color:var(--amber);border:1px solid rgba(255,181,71,.35)}
+  .b-blue{background:rgba(126,224,255,.14);color:var(--brand2);border:1px solid rgba(126,224,255,.35)}
+  .b-orange{background:rgba(255,158,71,.14);color:#ffb37a;border:1px solid rgba(255,158,71,.35)}
+  .b-red{background:rgba(255,107,107,.14);color:var(--red);border:1px solid rgba(255,107,107,.35)}
+  .note{background:rgba(255,181,71,.08);border:1px solid rgba(255,181,71,.3);border-left:4px solid var(--amber);border-radius:10px;padding:12px 15px;font-size:13px;color:#e7d9b8;margin:11px 0}
+  .note.info{background:rgba(91,140,255,.08);border-color:rgba(91,140,255,.3);border-left-color:var(--brand);color:#c8d6f0}
+  .note.danger{background:rgba(255,107,107,.08);border-color:rgba(255,107,107,.3);border-left-color:var(--red);color:#f0c8c8}
+  .note strong{color:var(--text)}
+  .star3{color:var(--green);font-weight:900}
+  .star2{color:var(--amber);font-weight:800}
+  .star1{color:var(--muted)}
+  .star0{color:#4a5568}
+  .totop{position:fixed;right:20px;bottom:20px;z-index:60;width:44px;height:44px;border-radius:50%;border:none;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#07101e;font-size:21px;font-weight:900;cursor:pointer;box-shadow:0 6px 20px rgba(91,140,255,.4);display:none}
+  .totop.show{display:block}
+  footer{position:relative;z-index:1;text-align:center;color:var(--muted);font-size:11.5px;padding:36px 0 26px;border-top:1px solid var(--line);margin-top:36px}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin:7px 0 3px}
+  .legend span b{margin-right:4px}
+  .keystate{border-collapse:collapse;width:100%;font-size:13.5px}
+  .keystate td,.keystate th{padding:10px 12px;border:1px solid var(--line)}
+  .keystate th{background:rgba(91,140,255,.12);color:var(--brand2);text-align:left;white-space:nowrap}
+  .keystate td:first-child{font-weight:800;color:var(--brand2);white-space:nowrap;width:200px}
+  .keystate tr:nth-child(even) td{background:rgba(91,140,255,.04)}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="wrap">
+
+<header>
+  <nav class="nav">
+    <span class="logo">✦ 飞书 AI & CodeM</span>
+    <a href="#start">01｜我们的当前起点</a>
+    <a href="#panorama">02｜飞书AI产品全景</a>
+    <a href="#feature">03｜功能对应产品/套餐</a>
+    <a href="#plans">04｜套餐权益逐项对比</a>
+    <a href="#codem">05｜CodeM到底是什么</a>
+    <a href="#usage">06｜用量与额外费用</a>
+    <a href="#role">07｜岗位应用</a>
+    <span class="tag">公开资料梳理 · 查询：2026-08</span>
+  </nav>
+</header>
+
+<!-- ============ 01 起点 ============ -->
+<section id="start">
+  <div class="eyebrow">01 / 当前起点</div>
+  <h1 class="hero">先看清楚<span>我们现在站在哪</span></h1>
+  <div class="subtitle">本页只记录公司当前已知实际购买状态，不据此推断飞书全部公开套餐能力。个人购买与公司企业权益严格分开。</div>
+  <div class="gradeline"></div>
+  <div class="module">
+    <div class="mod-head" onclick="toggle(this)"><h3>公司当前状态表</h3><span class="toggle">▾</span></div>
+    <div class="mod-body">
+      <div class="tbl-wrap"><table class="keystate">
+        <tr><th>项目</th><th>当前状态</th></tr>
+        <tr><td>企业认证</td><td>已完成</td></tr>
+        <tr><td>飞书主账号</td><td>免费版</td></tr>
+        <tr><td>商业版（标准/专业/旗舰）</td><td>未购买</td></tr>
+        <tr><td>企业版（企业旗舰系列）</td><td>未购买</td></tr>
+        <tr><td>企业 AI 套餐（AI 基础版/企业版/Plus/旗舰版任一）</td><td>未购买</td></tr>
+        <tr><td>CodeM</td><td>未购买</td></tr>
+        <tr><td>企业 AI 额度</td><td>未购买；公开资料显示免费版 AI 能力有免费额度上限，超出需另行购买 <a class="src" href="https://www.feishu.cn/hc/zh-CN/articles/819536981301" target="_blank" rel="noopener">官方来源</a></td></tr>
+        <tr><td>个人 AI</td><td>某位领导个人购买（个人权益，不计入公司企业 AI 权益）</td></tr>
+        <tr><td>工作流能力</td><td>某位领导单独购买部分能力（不视为公司全员能力）</td></tr>
+      </table></div>
+      <div class="note danger"><strong>重要区分：</strong>“某位领导个人能使用某项 AI”≠“公司企业已拥有该项能力”。本页以上为公司当前已知实际购买情况，不代表飞书全部公开套餐能力。</div>
+      <div class="note info"><strong>阅读线索：</strong>免费版 → 飞书 AI 产品全景 → 我要的能力对应哪个产品/套餐 → 不同套餐差在哪 → 个人 AI 与企业 AI 区别 → CodeM 是什么 → 用量与额外费用 → 对本公司各岗位有何帮助。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 全景 ============ -->
+<section id="panorama">
+  <div class="eyebrow">02 / 产品全景</div>
+  <h2 class="sec">飞书到底有哪些 AI 相关产品？</h2>
+  <p class="lead">下图只按官方资料可确认的关系组织；官方未明确从属的，以“相关能力/待确认”表示，不擅自画上下级。</p>
+  <div class="gradeline"></div>
+  <div class="tree"><span class="hl">飞书</span>
+│
+├── <span class="hl">飞书基础办公</span>（消息/文档/会议/多维表格/知识库/任务/邮箱）
+│     <span class="dim">相关 AI 增强：文档AI · 多维表AI · 会议AI(智能纪要) · 项目AI · 知识问答</span>
+│
+├── <span class="hl">飞书 AI</span>（企业级 AI 能力总称；按“AI 版本”打包购买，不限席位）
+│     ├── 知识问答 · 智能会议纪要 · 豆包工作伙伴
+│     ├── 文档 AI · 多维表格 AI · 飞书项目 AI
+│     ├── 飞书 aily（智能伙伴/开发后台）· 飞书妙搭
+│     └── 飞书 CodeM（<span class="dim">官方：2026-08-17 起纳入 AI 版本</span>）
+│
+├── <span class="hl">Agent / aily 智能伙伴</span>（AI 任务执行/自定义智能体，相关能力）
+│
+├── <span class="hl">应用开发能力</span>（相关产品）
+│     ├── 多维表格（数据/业务台账）
+│     ├── 妙搭 / 低代码（业务应用/流程工具）
+│     └── CodeM（AI 辅助软件/应用开发）
+│
+├── <span class="hl">AI 额度 / 用量</span>（通用货币；AI 版本按年给额度，AI 用量套餐按月给额度）
+│
+└── <span class="hl">个人 AI</span>（个人会员，独立于企业 AI 权益）<span class="dim"> 官方来源见各产品卡片</span></div>
+  <div class="note"><strong>关系说明：</strong>飞书官方将知识问答、智能纪要、文档AI、多维表AI、项目AI、aily、妙搭、CodeM 等列为“飞书 AI”各项 AI 功能（不同 AI 版本权益不同）；CodeM 与飞书项目深度联动，但官方未将其定义为“飞书项目的子功能”，此处按相关/联动处理。<a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank" rel="noopener">官方·飞书AI</a> <a class="src" href="http://helpdesk.feishu.cn/hc/zh-CN/articles/257240089464" target="_blank" rel="noopener">官方·帮助中心</a></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>产品卡片（点击展开/收起）</h3><span class="toggle">▾</span></div>
+  <div class="mod-body grid cards3">
+    <div class="card"><h3>飞书 AI（企业）</h3><p>企业统一购买的 AI 能力包，按版本（基础版/企业版/Plus/旗舰版）获得不同 AI 权益与年度额度，不限席位。<span class="badge b-green">🟢官方当前</span></p></div>
+    <div class="card"><h3>文档 AI / 多维表 AI / 会议 AI / 项目 AI</h3><p>分别将 AI 融入文档、多维表格、智能会议纪要、飞书项目（信息自动处理/分析/总结）。<span class="badge b-green">🟢官方当前</span></p></div>
+    <div class="card"><h3>知识问答</h3><p>面向企业知识的 AI 问答；付费权益随 AI 版本提升（基础版为“体验”，企业版起支持付费权益）。<span class="badge b-green">🟢官方当前</span></p></div>
+    <div class="card"><h3>Agent / aily 智能伙伴</h3><p>aily 提供智能伙伴与开发后台；AI 会员不含 aily 开发后台，企业 AI 版本包含。<span class="badge b-green">🟢官方当前</span></p></div>
+    <div class="card"><h3>妙搭 / 低代码</h3><p>与 AI 对话搭建网页/业务系统；属应用开发相关能力，不等同于 CodeM。<span class="badge b-green">🟢官方当前</span></p></div>
+    <div class="card"><h3>CodeM</h3><p>飞书原生企业级 AI Coding Agent，参与团队研发全流程（见 05）。<span class="badge b-green">🟢官方当前</span></p></div>
+    <div class="card"><h3>AI 额度 / 用量</h3><p>飞书内 AI 功能的通用货币；AI 版本按年给额度，AI 用量套餐按月给额度。<span class="badge b-green">🟢官方当前</span></p></div>
+    <div class="card"><h3>个人 AI 会员</h3><p>成员自行购买的 AI 单品（会员/Plus），权益归属个人，非企业权益。<span class="badge b-green">🟢官方当前</span></p></div>
+    <div class="card"><h3>API / SDK</h3><p>官方资料确认企业版起额外支持 aily API/SDK 调用及部分 AI 服务；具体范围以官方购买说明为准。<span class="badge b-yellow">🟡官方历史/按版本</span></p></div>
+  </div></div>
+</section>
+
+<!-- ============ 03 功能对应 ============ -->
+<section id="feature">
+  <div class="eyebrow">03 / 功能→产品·套餐</div>
+  <h2 class="sec">“我要这个能力，看哪个产品/套餐？”</h2>
+  <p class="lead">从功能需求出发，不按套餐倒推。状态：✅已包含 ◐含有限制 △需另购 ❌不包含 ?公开资料暂未确认。价格为公开资料当前值，主套件价来自官方价格页，AI 套餐价来自官方 AI 产品页。</p>
+  <div class="gradeline"></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>第一部分 · 功能 → 产品/套餐</h3><span class="toggle">▾</span></div>
+  <div class="mod-body">
+    <div class="filter"><span class="lbl">查看方式：</span><span class="chip active" data-f="all">全部</span><span class="chip" data-f="free">免费版</span><span class="chip" data-f="ai">AI套餐</span><span class="chip" data-f="codem">CodeM</span><span class="chip" data-f="personal">个人AI</span></div>
+    <div class="tbl-wrap"><table id="featTbl">
+      <tr><th>我想要的能力</th><th>对应产品/套餐</th><th>免费版</th><th>需额外购买</th><th>公开价格</th><th>使用限制</th><th>来源</th></tr>
+      <tr data-cat="free ai"><td>文档 AI</td><td>飞书 AI · 文档AI</td><td class="cond">◐有限</td><td>企业正式使用需 AI 版本/用量</td><td>AI基础版¥9900/年</td><td>消耗企业 AI 额度；免费额度用尽后需购买</td><td><a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank">官方</a></td></tr>
+      <tr data-cat="free ai codem"><td>多维表 AI</td><td>飞书 AI · 多维表格AI</td><td class="cond">◐有限</td><td>企业正式使用需 AI 版本/用量</td><td>AI基础版¥9900/年</td><td>消耗企业 AI 额度</td><td><a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank">官方</a></td></tr>
+      <tr data-cat="free ai"><td>会议 AI（智能纪要）</td><td>飞书 AI · 智能会议纪要</td><td class="cond">◐有限</td><td>企业正式使用需 AI 版本/用量</td><td>AI基础版¥9900/年</td><td>消耗企业 AI 额度</td><td><a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank">官方</a></td></tr>
+      <tr data-cat="free ai"><td>项目 AI（项目信息自动处理/分析/总结）</td><td>飞书 AI · 飞书项目AI</td><td class="q">?未确认免费范围</td><td>AI 版本（项目 AI 列属 AI 功能）</td><td>AI基础版¥9900/年</td><td>消耗企业 AI 额度；项目本身另按项目版本</td><td><a class="src" href="http://helpdesk.feishu.cn/hc/zh-CN/articles/257240089464" target="_blank">官方</a></td></tr>
+      <tr data-cat="free ai"><td>知识问答（企业知识）</td><td>飞书 AI · 知识问答</td><td class="cond">◐体验</td><td>付费权益需企业版起</td><td>AI企业版¥9.9万/年</td><td>基础版仅“体验”；企业版起支持付费权益</td><td><a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank">官方</a></td></tr>
+      <tr data-cat="ai"><td>AI 生成 / AI 分析（文档/表格等）</td><td>飞书 AI 各对应 AI 能力</td><td class="cond">◐有限</td><td>企业正式使用需 AI 版本/用量</td><td>AI基础版¥9900/年</td><td>按具体操作消耗 AI 额度</td><td><a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank">官方</a></td></tr>
+      <tr data-cat="ai"><td>AI 工作流 / Agent / aily 智能伙伴</td><td>飞书 aily（伙伴+开发后台）</td><td class="no">❌不含开发后台</td><td>AI 版本（会员亦不含开发后台）</td><td>AI基础版¥9900/年</td><td>会员仅 aily 智能伙伴/专业版，不含开发后台</td><td><a class="src" href="https://feishu.cn/service/ai?tab=personal" target="_blank">官方</a></td></tr>
+      <tr data-cat="ai"><td>aily API / SDK 调用</td><td>飞书 AI · 企业版起</td><td class="no">❌</td><td>AI 企业版起</td><td>AI企业版¥9.9万/年</td><td>企业版额外支持 aily API/SDK 及部分 AI 服务</td><td><a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank">官方</a></td></tr>
+      <tr data-cat="free ai"><td>妙搭 / 低代码应用搭建</td><td>飞书妙搭（相关应用开发能力）</td><td class="cond">◐有限</td><td>AI 深度使用需 AI 版本/用量</td><td>AI基础版¥9900/年</td><td>与 AI 对话搭建网页/系统；产出物去水印随会员</td><td><a class="src" href="https://feishu.cn/service/ai?tab=personal" target="_blank">官方</a></td></tr>
+      <tr data-cat="codem ai"><td>AI 代码生成 / 修改 / 调试 / 测试 / 需求开发</td><td>CodeM（企业级 AI Coding Agent）</td><td class="no">❌</td><td>AI 版本(08-17纳入) 或 AI 用量套餐</td><td>AI用量套餐¥9.9万/年</td><td>用量套餐当前仅支持 CodeM；见 05/06</td><td><a class="src" href="http://helpdesk.feishu.cn/hc/zh-CN/articles/257240089464" target="_blank">官方</a></td></tr>
+      <tr data-cat="free"><td>多维表格（数据/台账）</td><td>多维表格（基础办公）</td><td class="ok">✅含</td><td>—</td><td>免费版含</td><td>免费版含基础能力；高级能力随商业专业版</td><td><a class="src" href="https://www.feishu.cn/price-list" target="_blank">官方</a></td></tr>
+      <tr data-cat="ai"><td>企业级 AI 额度 / 统一用量管理</td><td>飞书 AI 版本 或 AI 用量套餐</td><td class="q">?免费额度范围未公开确认</td><td>是（超额需购买）</td><td>见 04/06</td><td>按实际使用消耗；管理员可查用量/配置限额</td><td><a class="src" href="https://www.feishu.cn/hc/zh-CN/articles/819536981301" target="_blank">官方</a></td></tr>
+      <tr data-cat="personal"><td>个人 AI 会员（知识问答/纪要/aily/妙搭）</td><td>飞书 AI 会员 / Plus（个人）</td><td class="extra">△个人购买</td><td>个人自行购买，非企业权益</td><td>¥69/月或¥138/月</td><td>额度归个人；与企业额度分开</td><td><a class="src" href="https://feishu.cn/service/ai?tab=personal" target="_blank">官方</a></td></tr>
+    </table></div>
+    <div class="note"><strong>说明：</strong>“功能包含”≠“无限使用”。例如文档/多维表/会议 AI 在免费版可能有有限免费体验，但企业规模正式使用需购买 AI 版本或用量并产生额度消耗；具体免费额度阈值公开资料未逐项给出，标注“待确认”。</div>
+  </div></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>第二部分 · 用场景反查“需要什么”</h3><span class="toggle">▾</span></div>
+  <div class="mod-body">
+    <div class="tbl-wrap"><table>
+      <tr><th>我想做的东西</th><th>可能涉及的飞书能力</th><th>对应产品/套餐</th><th>是否需额外购买</th></tr>
+      <tr><td>内容生产助手</td><td>文档AI · 知识问答 · AI生成</td><td>飞书 AI 版本</td><td>企业正式使用需购买 AI 版本/用量</td></tr>
+      <tr><td>项目管理台账</td><td>多维表格 · 项目AI · 任务</td><td>飞书（免费版含多维表/任务）+ 项目AI</td><td>项目AI需 AI 版本</td></tr>
+      <tr><td>自动提醒</td><td>AI工作流 · aily智能伙伴 · 多维表</td><td>飞书 aily + AI 版本</td><td>AI工作流/智能体深度使用需 AI 版本</td></tr>
+      <tr><td>群聊总结</td><td>会议AI/群聊智能纪要 · 文档AI</td><td>飞书 AI 版本</td><td>企业正式使用需 AI 版本/用量</td></tr>
+      <tr><td>AI 知识库</td><td>知识问答 · 知识库 · 企业知识</td><td>飞书 AI（企业版起付费权益）</td><td>知识问答付费权益需企业版起</td></tr>
+      <tr><td>AI 智能体</td><td>Agent · aily开发后台</td><td>飞书 aily + AI 版本</td><td>开发后台需 AI 版本（会员不含）</td></tr>
+      <tr><td>内部业务小工具</td><td>多维表格 · 妙搭 · 低代码</td><td>飞书妙搭 + AI 版本/用量</td><td>AI搭建深度使用需 AI 版本/用量</td></tr>
+      <tr><td>数据分析工具</td><td>多维表AI · 多维表格 · 仪表盘</td><td>飞书 AI 版本</td><td>多维表AI需 AI 版本/用量</td></tr>
+      <tr><td>AI 开发应用 / 代码类应用</td><td>CodeM · Coding Agent</td><td>CodeM（AI版本08-17纳入 或 AI用量套餐）</td><td>是（见 05/06）</td></tr>
+    </table></div>
+    <div class="note info">以上仅做“需求→产品”对应，不做购买推荐。是否购买由领导结合 04 套餐对比、06 用量与岗位实际诉求判断。</div>
+  </div></div>
+</section>
+
+<!-- ============ 04 套餐 ============ -->
+<section id="plans">
+  <div class="eyebrow">04 / 套餐权益</div>
+  <h2 class="sec">不同套餐，到底差在哪？</h2>
+  <p class="lead">主套件为飞书按人/月基础办公套餐；AI 套餐为独立按年/不限席位的 AI 能力包。两者计费维度不同，可分别理解。</p>
+  <div class="gradeline"></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>A · 套餐基础信息</h3><span class="toggle">▾</span></div>
+  <div class="mod-body">
+    <div class="filter"><span class="lbl">筛选：</span><span class="chip active" data-p="all">全部</span><span class="chip" data-p="core">主套件</span><span class="chip" data-p="ai">AI套餐</span><span class="chip" data-p="codem">CodeM</span><span class="chip" data-p="price">价格</span><span class="chip" data-p="quota">额度</span></div>
+    <div class="tbl-wrap"><table id="planTbl">
+      <tr><th>套餐名称</th><th>对象</th><th>价格</th><th>计费</th><th>AI权益</th><th>CodeM</th><th>AI额度</th><th>主要限制</th><th>来源</th></tr>
+      <tr data-pcat="core price"><td>免费版</td><td>企业/个人</td><td>¥0</td><td>人/月</td><td>基础办公；AI有限免费体验</td><td>❌不含</td><td>?未公开逐项阈值</td><td>AI正式使用/额度超额需购买</td><td><a class="src" href="https://www.feishu.cn/price-list" target="_blank">官方</a></td></tr>
+      <tr data-pcat="core price"><td>商业标准版</td><td>小型团队</td><td>¥50/人/月</td><td>按人/月·按年付费</td><td>含免费版+会议/存储/妙记等</td><td>?待确认</td><td>?待确认</td><td>500用户上限</td><td><a class="src" href="https://www.feishu.cn/price-list" target="_blank">官方</a></td></tr>
+      <tr data-pcat="core price"><td>商业专业版</td><td>成长型团队</td><td>¥80/人/月</td><td>按人/月·按年付费</td><td>含标准版+多维表高级/定制工作台</td><td>?待确认</td><td>?待确认</td><td>500用户上限</td><td><a class="src" href="https://www.feishu.cn/price-list" target="_blank">官方</a></td></tr>
+      <tr data-pcat="core price"><td>商业旗舰版</td><td>进阶成长团队</td><td>¥120/人/月</td><td>按人/月·按年付费</td><td>含专业版+500方会议/容量/SSO等</td><td>?待确认</td><td>?待确认</td><td>500用户上限</td><td><a class="src" href="https://www.feishu.cn/price-list" target="_blank">官方</a></td></tr>
+      <tr data-pcat="core ai price"><td>企业旗舰系列</td><td>大型企业</td><td>定制方案</td><td>按年·联系销售</td><td>企业级安全/组织管控/品牌定制</td><td>?待确认</td><td>?待确认</td><td>无规模上限；AI权益另购</td><td><a class="src" href="https://www.feishu.cn/price-list" target="_blank">官方</a></td></tr>
+      <tr data-pcat="ai codem quota price"><td>飞书 AI 基础版</td><td>企业（不限席位）</td><td>¥9900/年</td><td>按年</td><td>智能纪要/豆包伙伴/aily开发后台/多维表AI/文档AI/妙搭/项目AI/知识问答体验</td><td class="cond">◐08-17起纳入</td><td>18万点/年</td><td>知识问答仅体验；额度按年</td><td><a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank">官方</a></td></tr>
+      <tr data-pcat="ai codem quota price"><td>飞书 AI 企业版</td><td>企业（不限席位）</td><td>¥9.9万/年</td><td>按年</td><td>基础版+知识问答付费权益/aily API·SDK及部分AI服务</td><td class="cond">◐08-17起纳入</td><td>200万点/年</td><td>额度按年；高阶能力见Plus/旗舰</td><td><a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank">官方</a></td></tr>
+      <tr data-pcat="ai codem quota price"><td>飞书 AI 企业版 Plus</td><td>企业（不限席位）</td><td>联系销售</td><td>按年</td><td>企业版+企业知识流通/aily高级定制/自定义模型/AI专项服务</td><td class="cond">◐08-17起纳入</td><td>600万点/年</td><td>报价需联系销售</td><td><a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank">官方</a></td></tr>
+      <tr data-pcat="ai codem quota price"><td>飞书 AI 旗舰版</td><td>企业（不限席位）</td><td>联系销售</td><td>按年</td><td>Plus+知识问答API等全场景方案</td><td class="cond">◐08-17起纳入</td><td>2000万点/年</td><td>报价需联系销售</td><td><a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank">官方</a></td></tr>
+      <tr data-pcat="ai codem quota price"><td>飞书 AI 用量套餐</td><td>企业（CodeM等按月用量）</td><td>¥9.9万/年</td><td>按年订阅</td><td>按月刷新的 AI 额度+云沙箱；当前仅支持 CodeM</td><td class="ok">✅当前仅支持CodeM</td><td>20万点/月(不结转)</td><td>额度按月刷新、次月不结转；赠10台云沙箱</td><td><a class="src" href="https://www.feishu.cn/hc/zh-CN/articles/819536981301" target="_blank">官方</a></td></tr>
+    </table></div>
+    <div class="note"><strong>主套件 vs AI 套餐：</strong>主套件按“人/月”计基础办公；AI 套餐按“年/不限席位”计 AI 能力与额度。两者不是同一计费维度。企业旗舰系列的 AI 权益是否随附，公开资料标注为“更高规格用量权益”，具体以销售方案为准（?待确认）。</div>
+  </div></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>B · AI 功能逐项对比（企业 AI 套餐四档）</h3><span class="toggle">▾</span></div>
+  <div class="mod-body">
+    <div class="tbl-wrap"><table>
+      <tr><th>AI功能</th><th>AI基础版</th><th>AI企业版</th><th>AI企业版Plus</th><th>AI旗舰版</th><th>备注/来源</th></tr>
+      <tr><td>智能会议纪要</td><td class="ok">✅</td><td class="ok">✅</td><td class="ok">✅</td><td class="ok">✅</td><td rowspan="7">官方AI产品页：各版本均含知识问答/会议纪要/多维表AI/文档AI等；差异在额度与高阶权益。<a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank">官方</a></td></tr>
+      <tr><td>文档 AI / 多维表格 AI</td><td class="ok">✅</td><td class="ok">✅</td><td class="ok">✅</td><td class="ok">✅</td></tr>
+      <tr><td>飞书项目 AI</td><td class="ok">✅</td><td class="ok">✅</td><td class="ok">✅</td><td class="ok">✅</td></tr>
+      <tr><td>飞书 aily 开发后台</td><td class="ok">✅</td><td class="ok">✅</td><td class="ok">✅</td><td class="ok">✅</td></tr>
+      <tr><td>飞书妙搭</td><td class="ok">✅</td><td class="ok">✅</td><td class="ok">✅</td><td class="ok">✅</td></tr>
+      <tr><td>知识问答</td><td class="cond">◐体验</td><td class="ok">✅付费权益</td><td class="ok">✅</td><td class="ok">✅</td></tr>
+      <tr><td>aily API/SDK · 部分AI服务</td><td class="no">❌</td><td class="ok">✅</td><td class="ok">✅</td><td class="ok">✅</td></tr>
+      <tr><td>企业知识流通能力</td><td class="no">❌</td><td class="no">❌</td><td class="ok">✅</td><td class="ok">✅</td><td rowspan="3">官方AI产品页：Plus在企业版基础上额外支持。<a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank">官方</a></td></tr>
+      <tr><td>aily高级定制/自定义模型接入</td><td class="no">❌</td><td class="no">❌</td><td class="ok">✅</td><td class="ok">✅</td></tr>
+      <tr><td>知识问答 API / 全场景方案</td><td class="no">❌</td><td class="no">❌</td><td class="no">❌</td><td class="ok">✅</td></tr>
+      <tr><td>CodeM</td><td colspan="4" style="text-align:center" class="cond">◐ 官方：2026-08-17 起纳入飞书 AI 版本（各版本）</td><td>具体纳入后各版本可用范围以官方购买说明为准（?待确认）。<a class="src" href="http://helpdesk.feishu.cn/hc/zh-CN/articles/257240089464" target="_blank">官方</a></td></tr>
+      <tr><td>年度 AI 额度</td><td>18万点</td><td>200万点</td><td>600万点</td><td>2000万点</td><td>按年给额；不同操作消耗不同额度（具体折算?待确认）</td></tr>
+    </table></div>
+    <div class="note"><strong>“包含”已拆开：</strong>包含≠无限。即便功能✅，实际使用仍消耗 AI 额度；额度用尽后需追加购买（叠加 AI 用量套餐或更高 AI 版本）。知识问答在基础版仅为“体验”，企业版起为付费权益。</div>
+  </div></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>C · 个人 AI VS 企业 AI（必须分开）</h3><span class="toggle">▾</span></div>
+  <div class="mod-body">
+    <div class="tbl-wrap"><table>
+      <tr><th>对比项目</th><th>个人 AI（会员/Plus）</th><th>企业 AI（AI 版本/用量套餐）</th></tr>
+      <tr><td>面向对象</td><td>个人成员</td><td>企业（不限席位/成员共享）</td></tr>
+      <tr><td>谁购买</td><td>成员自行购买</td><td>企业管理员统一购买</td></tr>
+      <tr><td>谁使用</td><td>购买者本人</td><td>企业成员（按版本权益共享使用）</td></tr>
+      <tr><td>AI 额度</td><td>1000点/月（会员）或2000点/月（Plus）</td><td>18万~2000万点/年（AI版本）或20万点/月（用量套餐）</td></tr>
+      <tr><td>额度归属</td><td>个人</td><td>企业（成员共享）</td></tr>
+      <tr><td>企业知识/知识问答</td><td>知识问答需租户整体开通；会员能力有限</td><td>企业版起支持知识问答付费权益/API</td></tr>
+      <tr><td>管理员/成员管理</td><td>无企业管理能力</td><td>管理员可查 AI 权益用量、功能使用数据、配置限额/管控</td></tr>
+      <tr><td>数据/权限</td><td>个人使用</td><td>企业级安全合规/组织管控</td></tr>
+      <tr><td>Agent / aily</td><td>aily智能伙伴/专业版；<strong>不含开发后台</strong></td><td>含 aily 开发后台（AI版本）</td></tr>
+      <tr><td>CodeM</td><td>?公开资料暂未确认个人会员含CodeM</td><td>AI用量套餐当前支持CodeM；AI版本08-17起纳入CodeM</td></tr>
+      <tr><td>价格</td><td>¥69/月 或 ¥138/月</td><td>AI基础版¥9900/年；企业版¥9.9万/年；Plus/旗舰联系销售；用量套餐¥9.9万/年</td></tr>
+      <tr><td>使用限制</td><td>个人额度；与企业额度分开</td><td>企业额度共享；超额需追加购买</td></tr>
+    </table></div>
+    <div class="note danger"><strong>与公司现状对应：</strong>本公司“某位领导个人购买的个人 AI”属于上表左侧个人列，不计入公司企业 AI 权益；公司主账号为免费版、未购买企业 AI 套餐。<a class="src" href="https://feishu.cn/service/ai?tab=personal" target="_blank">官方·个人AI</a> <a class="src" href="https://www.feishu.cn/hc/zh-CN/articles/819536981301" target="_blank">官方·用量</a></div>
+  </div></div>
+</section>
+
+<!-- ============ 05 CodeM ============ -->
+<section id="codem">
+  <div class="eyebrow">05 / CodeM</div>
+  <h2 class="sec">CodeM 到底是什么？</h2>
+  <p class="lead">只回答定位、能力、与飞书 AI/多维表/妙搭的区别。不替领导做购买判断。</p>
+  <div class="gradeline"></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>① CodeM 是什么</h3><span class="toggle">▾</span></div>
+  <div class="mod-body"><div class="tbl-wrap"><table class="keystate">
+    <tr><th>字段</th><th>公开资料确认内容</th></tr>
+    <tr><td>官方名称</td><td>飞书 CodeM（飞书原生的 AI 研发智能体 / 企业级 AI Coding Agent）</td></tr>
+    <tr><td>官方定位</td><td>深度融入飞书与飞书项目，让 AI 像研发工程师一样参与团队研发全流程；把 Coding Agent 从个人工具升级为团队级研发基础设施。<span class="badge b-green">🟢官方当前</span></td></tr>
+    <tr><td>主要用途</td><td>代码生成、调试修复、测试执行、需求开发等研发任务；自主完成开发→验证→提审→同步进度，在飞书生态内闭环。</td></tr>
+    <tr><td>主要使用人群</td><td>研发团队/开发者；企业管理员配置项目空间、沙箱、规范。</td></tr>
+    <tr><td>核心能力</td><td>需求理解（读群聊/文档/项目）→编码/修改/验证→关键节点留痕→确认后提审→进度同步飞书项目；多端入口（Bot/群@/CLI/桌面/Web）。</td></tr>
+    <tr><td>安全治理</td><td>云端沙箱（用完即销）、读写执行分级授权、动态 Token、操作记录可追溯、高风险动作人工确认。</td></tr>
+    <tr><td>纳入 AI 版本</td><td>官方：将于 2026-08-17 纳入飞书 AI 版本（基础版/企业版/Plus/旗舰版）。</td></tr>
+    <tr><td>官方来源</td><td><a class="src" href="http://helpdesk.feishu.cn/hc/zh-CN/articles/257240089464" target="_blank">官方帮助中心</a> · <a class="src" href="https://project.feishu.cn/home/news/feishu-codem" target="_blank">官方发布</a> · <a class="src" href="https://www.feishu.cn/hc/zh-CN/articles/819536981301" target="_blank">AI用量套餐</a></td></tr>
+  </table></div></div></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>② CodeM 能做什么（仅官方公开确认）</h3><span class="toggle">▾</span></div>
+  <div class="mod-body grid cards3">
+    <div class="card"><h3>代码生成</h3><p>按需求生成前后端代码、任务拆分、补齐校验等。</p></div>
+    <div class="card"><h3>代码修改</h3><p>在现有项目上下文中修改代码、接入能力等。</p></div>
+    <div class="card"><h3>调试 / 修复</h3><p>定位、拆解、修复缺陷并自验证；无人值守闭环修复。</p></div>
+    <div class="card"><h3>测试 / 运行</h3><p>运行类型检查、构建、测试；云端沙箱隔离执行。</p></div>
+    <div class="card"><h3>需求开发</h3><p>从需求拆解到编码实现，带完整上下文推进研发。</p></div>
+    <div class="card"><h3>研发流程联动</h3><p>群@触发→读群聊/文档/项目→提审→状态同步飞书项目。</p></div>
+    <div class="card"><h3>项目理解</h3><p>读取项目文档、代码仓库、团队规范，理解需求背景。</p></div>
+    <div class="card"><h3>团队/企业管理</h3><p>项目空间、知识库、沙箱、行为准则统一配置；操作记录可观测。</p></div>
+    <div class="card"><h3>多端调用</h3><p>飞书Bot/群@、CLI、桌面客户端、Web 管理平台。</p></div>
+  </div></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>③ CodeM 与 飞书 AI / Agent / 普通 AI 区别</h3><span class="toggle">▾</span></div>
+  <div class="mod-body"><div class="tbl-wrap"><table>
+    <tr><th></th><th>普通 AI</th><th>飞书 AI</th><th>Agent / aily</th><th>CodeM</th></tr>
+    <tr><td>主要用途</td><td>通用问答/生成</td><td>工作场景 AI（知识/纪要/文档/表格/项目）</td><td>AI 执行任务/自定义智能体</td><td>软件/应用研发全流程</td></tr>
+    <tr><td>工作资料</td><td>?待确认</td><td>可结合企业知识与飞书工作资料</td><td>可按需接入资料/工具</td><td>读群聊/文档/项目/代码仓库</td></tr>
+    <tr><td>自动执行</td><td>有限</td><td>各 AI 能力辅助处理</td><td>面向任务自动执行</td><td>自主编码→验证→提审→同步</td></tr>
+    <tr><td>代码能力</td><td>?待确认</td><td>非核心定位</td><td>?待确认</td><td class="ok">✅核心：生成/修改/调试/测试</td></tr>
+    <tr><td>应用开发</td><td>?待确认</td><td>妙搭等辅助搭建</td><td>智能体/工具集成</td><td class="ok">✅研发级应用开发</td></tr>
+    <tr><td>主要人群</td><td>通用用户</td><td>企业成员</td><td>开发者/业务搭建者</td><td>研发团队/开发者</td></tr>
+  </table></div></div></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>④ CodeM 与 多维表 / 妙搭 区别</h3><span class="toggle">▾</span></div>
+  <div class="mod-body"><div class="tbl-wrap"><table>
+    <tr><th>工具</th><th>主要解决什么</th><th>是否属于 CodeM</th></tr>
+    <tr><td>多维表格</td><td>数据管理、台账、简单业务流程</td><td>否</td></tr>
+    <tr><td>妙搭 / 低代码</td><td>业务应用、流程工具（与 AI 对话搭建网页/系统）</td><td>否</td></tr>
+    <tr><td>Agent / aily</td><td>AI 任务执行、自定义智能体</td><td>否</td></tr>
+    <tr><td>CodeM</td><td>AI 辅助/参与软件与应用研发（编码级）</td><td>是</td></tr>
+  </table></div>
+  <div class="note info">官方定位若与上述不同，以官方资料修正。CodeM 不等于“所有 AI 开发需求”的唯一答案：轻量业务台账用多维表，业务系统用妙搭/低代码，研发级编码与工程化交付才对应 CodeM。</div></div></div>
+</section>
+
+<!-- ============ 06 用量 ============ -->
+<section id="usage">
+  <div class="eyebrow">06 / 用量与额外费用</div>
+  <h2 class="sec">除了套餐价格，还有什么钱？</h2>
+  <p class="lead">逐项回答十个问题。AI 额度是飞书内 AI 功能的通用货币；不同操作消耗不同额度（具体单次折算公开资料未逐项给出，标注待确认）。</p>
+  <div class="gradeline"></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>十个问题</h3><span class="toggle">▾</span></div>
+  <div class="mod-body grid cards2">
+    <div class="card"><h3>① 什么按额度/用量计算？</h3><p>飞书内正式商业化的 AI 功能（知识问答、纪要、aily、多维表AI、文档AI、妙搭、项目AI 等）；AI 用量套餐当前仅支持 CodeM。<span class="badge b-green">🟢官方</span></p></div>
+    <div class="card"><h3>② 用量单位？</h3><p>“点”（AI 额度/点）。<span class="badge b-green">🟢官方</span></p></div>
+    <div class="card"><h3>③ 每月多少 / 每年多少？</h3><p>AI 版本按年：18万/200万/600万/2000万点·年。AI 用量套餐：20万点/月（全年共240万点）。<span class="badge b-green">🟢官方</span></p></div>
+    <div class="card"><h3>④ 是否共享？</h3><p>企业购买后，企业成员可共享该额度；个人会员额度归个人。<span class="badge b-green">🟢官方</span></p></div>
+    <div class="card"><h3>⑤ 是否刷新 / 结转？</h3><p>AI 版本按年给额（年度口径）；AI 用量套餐月度额度按月刷新、次月不结转。<span class="badge b-green">🟢官方</span></p></div>
+    <div class="card"><h3>⑥ 是否追加购买？</h3><p>可以。额度不足可叠加多份 AI 用量套餐（额度/沙箱按倍数叠加），或购买更高 AI 版本（叠加额度，不含云沙箱）。<span class="badge b-green">🟢官方</span></p></div>
+    <div class="card"><h3>⑦ 什么行为消耗 / 不同操作是否不同？</h3><p>使用正式商业化 AI 功能即消耗；不同功能/任务消耗规则不同。具体各操作单次折算公开资料暂未逐项给出。<span class="badge b-red">🔴待确认</span></p></div>
+    <div class="card"><h3>⑧ 超额怎么办？</h3><p>超出免费额度后，需另行购买 AI 用量/更高 AI 版本；管理员可查用量、配置限额并管控。<span class="badge b-green">🟢官方</span></p></div>
+    <div class="card"><h3>⑨ CodeM 与 AI 额度关系？</h3><p>CodeM 纳入 AI 版本后随版本获得权益；AI 用量套餐当前仅支持 CodeM，提供月度额度+10台云沙箱。<span class="badge b-green">🟢官方</span></p></div>
+    <div class="card"><h3>⑩ 其他独立收费？</h3><p>云沙箱随 AI 用量套餐赠送（10台）；未使用/未用完不支持退款、折价或抵扣。主套件按人/月另计。<span class="badge b-green">🟢官方</span></p></div>
+  </div>
+  <div class="note"><strong>查询时间：</strong>2026-08。资料以飞书 AI 用量套餐说明（2026-08-17 起售）及 AI 产品页为准。<a class="src" href="https://www.feishu.cn/hc/zh-CN/articles/819536981301" target="_blank">官方·用量</a> <a class="src" href="https://www.feishu.cn/product/feishuai?from=homepage" target="_blank">官方·AI产品</a></div></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>用量逻辑流程图</h3><span class="toggle">▾</span></div>
+  <div class="mod-body">
+    <div class="flow">
+      <div class="step">购买产品<br>/获得权益</div><span class="arrow">↓</span>
+      <div class="step">获得使用资格<br>（企业/个人）</div><span class="arrow">↓</span>
+      <div class="step">获得 AI 额度<br>/月度用量</div><span class="arrow">↓</span>
+      <div class="step">实际使用<br>AI功能/CodeM</div><span class="arrow">↓</span>
+      <div class="step">消耗额度</div><span class="arrow">↓</span>
+      <div class="step">额度不足</div><span class="arrow">↓</span>
+      <div class="step">刷新(月度)<br>或追加购买<br>/升级版本</div>
+    </div>
+    <div class="note info">各环节依据：购买/权益、额度与共享、月度刷新不结转、追加/升级方式见官方 AI 用量套餐说明。各操作单次消耗折算“公开资料暂未确认”。</div>
+  </div></div>
+</section>
+
+<!-- ============ 07 岗位 ============ -->
+<section id="role">
+  <div class="eyebrow">07 / 岗位应用</div>
+  <h2 class="sec">这些能力，对我们不同岗位有什么帮助？</h2>
+  <p class="lead">只做“能力→岗位帮助”的对应展示，不做购买推荐。CodeM 是否相关按实际工作判断。</p>
+  <div class="gradeline"></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>各岗位应用说明（展开查看）</h3><span class="toggle">▾</span></div>
+  <div class="mod-body grid cards2">
+    <div class="card"><h3>美工 / 平面设计</h3><p>整理设计需求、汇总修改意见、自动生成 Brief、设计任务管理、进度/素材提醒。对应：文档AI/知识库/任务/AI提醒。<br><strong>CodeM：</strong>暂无明显关系（非研发岗）。</p></div>
+    <div class="card"><h3>视频剪辑</h3><p>视频需求整理、脚本初稿、字幕/标题/简介、发布台账、素材分类、自动提醒。对应：文档AI/多维表/任务/AI生成。<br><strong>CodeM：</strong>暂无明显关系。</p></div>
+    <div class="card"><h3>文案策划</h3><p>资料整理、选题、文案初稿、多版本文案、内容改写/汇总。对应：文档AI/知识问答/AI生成/知识库。<br><strong>CodeM：</strong>暂无明显关系（除非参与研发内部内容工具）。</p></div>
+    <div class="card"><h3>品牌 IP 设计</h3><p>品牌/竞品/用户资料整理、IP 资料库、Brief、反馈汇总。对应：知识库/知识问答/文档AI。<br><strong>CodeM：</strong>暂无明显关系。</p></div>
+    <div class="card"><h3>展厅样品采购</h3><p>样品数据库、采购台账、到货/供应商/价格记录、到货提醒、重复采购提醒、采购分析。对应：多维表AI/多维表/任务/AI提醒。<br><strong>CodeM：</strong>间接相关（若需开发定制采购系统）。</p></div>
+    <div class="card"><h3>抖音直播主播</h3><p>直播提纲、产品资料查询、话术初稿、高频问题整理、直播复盘、用户问题统计。对应：文档AI/知识库/知识问答/多维表。<br><strong>CodeM：</strong>暂无明显关系。</p></div>
+    <div class="card"><h3>国内社媒投流投手</h3><p>投放数据整理、日报/周报、异常提醒、素材表现分析、数据复盘。对应：多维表AI/多维表/AI分析/AI提醒。<br><strong>CodeM：</strong>间接相关（若需开发数据看板/分析工具）。</p></div>
+    <div class="card"><h3>管理层</h3><p>项目进度/风险汇总、待办提取、群聊总结、每日总结、跨部门协作、AI问答/智能体。对应：项目AI/会议AI/知识问答/Agent·aily。<br><strong>CodeM：</strong>暂无明显关系（除非参与研发内部管理工具）。</p></div>
+  </div></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>岗位总表：可能涉及的飞书能力 / 是否涉及 CodeM</h3><span class="toggle">▾</span></div>
+  <div class="mod-body"><div class="tbl-wrap"><table>
+    <tr><th>岗位</th><th>主要工作</th><th>AI 可帮什么</th><th>可能涉及的飞书能力</th><th>是否涉及 CodeM</th></tr>
+    <tr><td>美工</td><td>海报/物料/社媒图/视觉/改稿</td><td>需求/Brief/改稿汇总/任务提醒</td><td>文档AI/知识库/任务</td><td>暂无明显关系</td></tr>
+    <tr><td>视频剪辑</td><td>剪辑/字幕/多平台发布/素材</td><td>脚本/字幕/标题/台账/提醒</td><td>文档AI/多维表/任务/AI生成</td><td>暂无明显关系</td></tr>
+    <tr><td>文案策划</td><td>选题/文案/方案/社媒内容</td><td>资料/初稿/多版本/改写</td><td>文档AI/知识问答/知识库</td><td>暂无明显关系</td></tr>
+    <tr><td>品牌IP设计</td><td>IP定位/品牌内容/视觉/资产</td><td>资料库/竞品研究/Brief/反馈</td><td>知识库/知识问答/文档AI</td><td>暂无明显关系</td></tr>
+    <tr><td>展厅样品采购</td><td>样品/供应商/价格/到货</td><td>台账/提醒/采购分析</td><td>多维表AI/多维表/任务</td><td>间接相关（定制系统）</td></tr>
+    <tr><td>抖音主播</td><td>直播/产品介绍/复盘</td><td>提纲/话术/问题整理/复盘</td><td>文档AI/知识库/多维表</td><td>暂无明显关系</td></tr>
+    <tr><td>社媒投流</td><td>投放/数据/素材测试/ROI</td><td>日报/异常提醒/素材分析</td><td>多维表AI/AI分析/任务</td><td>间接相关（数据看板）</td></tr>
+    <tr><td>管理层</td><td>进度/风险/协作/总结</td><td>进度汇总/风险提醒/群聊总结</td><td>项目AI/会议AI/知识问答/Agent</td><td>暂无明显关系</td></tr>
+  </table></div>
+  <div class="note info">判断口径：本公司在岗工作以内容/业务/管理为主，绝大多数岗位对应“飞书 AI（文档/知识/多维表/项目/会议 AI）”即可覆盖；CodeM 仅在“需要研发级编码/应用开发”的场景下直接相关，不强行填“是”。</div></div></div>
+
+  <div class="module"><div class="mod-head" onclick="toggle(this)"><h3>场景匹配速查（★最适合 ★★可解决 ★有帮助 —不适合）</h3><span class="toggle">▾</span></div>
+  <div class="mod-body"><div class="tbl-wrap"><table>
+    <tr><th>典型场景</th><th>普通AI</th><th>飞书AI</th><th>多维表</th><th>Agent/aily</th><th>CodeM</th></tr>
+    <tr><td>内容生产/文案/知识查询</td><td class="star2">★★</td><td class="star3">★★★</td><td class="star1">★</td><td class="star2">★★</td><td class="star0">—</td></tr>
+    <tr><td>业务台账/采购/发布台账</td><td class="star1">★</td><td class="star2">★★</td><td class="star3">★★★</td><td class="star2">★★</td><td class="star0">—</td></tr>
+    <tr><td>项目进度/风险/群聊总结</td><td class="star1">★</td><td class="star3">★★★</td><td class="star2">★★</td><td class="star3">★★★</td><td class="star0">—</td></tr>
+    <tr><td>AI智能体/自动提醒</td><td class="star1">★</td><td class="star2">★★</td><td class="star2">★★</td><td class="star3">★★★</td><td class="star0">—</td></tr>
+    <tr><td>内部业务小工具/应用搭建</td><td class="star1">★</td><td class="star2">★★</td><td class="star3">★★★</td><td class="star3">★★★</td><td class="star1">★</td></tr>
+    <tr><td>AI 代码生成/修改/调试/测试</td><td class="star1">★</td><td class="star1">★</td><td class="star0">—</td><td class="star1">★</td><td class="star3">★★★</td></tr>
+    <tr><td>研发级应用/工程化交付</td><td class="star0">—</td><td class="star1">★</td><td class="star0">—</td><td class="star1">★</td><td class="star3">★★★</td></tr>
+  </table></div>
+  <div class="note">此为“场景—工具”匹配参考，非产品评分，也不构成购买建议。实际是否采用由领导结合 04 套餐/06 用量及真实需求判断。</div></div></div>
+</section>
+
+<footer>
+  <div>飞书 AI & CodeM · 产品、套餐、费用与实际工作应用梳理　|　公开资料查询：2026-08　|　公司内部汇报资料，非飞书官方页面</div>
+  <div class="legend"><span><b>🟢</b>官方当前资料</span><span><b>🟡</b>官方历史/按版本</span><span><b>🔵</b>官方公开文章</span><span><b>🟠</b>第三方资料</span><span><b>🔴</b>待确认</span></div>
+  <div>所有价格/权益均附官方来源链接；公开资料未确认处统一标注“待确认/公开资料暂未确认”，未做任何推测或补全。</div>
+</footer>
+</div>
+
+<button class="totop" id="totop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function toggle(el){el.parentElement.classList.toggle('collapsed')}
+// 筛选 03 功能表
+document.querySelectorAll('#feature .filter .chip').forEach(c=>c.onclick=function(){this.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));this.classList.add('active');var f=this.dataset.f;document.querySelectorAll('#featTbl tr').forEach(r=>{if(r.rowIndex===0){r.style.display='';return;}var cats=(r.dataset.cat||'').split(' ');r.style.display=(f==='all'||cats.indexOf(f)>=0)?'':'none';});});
+// 筛选 04 套餐表
+document.querySelectorAll('#plans .filter .chip').forEach(c=>c.onclick=function(){this.parentElement.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));this.classList.add('active');var f=this.dataset.p;document.querySelectorAll('#planTbl tr').forEach(r=>{if(r.rowIndex===0){r.style.display='';return;}var cats=(r.dataset.pcat||'').split(' ');r.style.display=(f==='all'||cats.indexOf(f)>=0)?'':'none';});});
+// 回到顶部
+var to=document.getElementById('totop');window.addEventListener('scroll',function(){to.classList.toggle('show',window.scrollY>420)});
+// 导航高亮
+var secs=['start','panorama','feature','plans','codem','usage','role'];var nav=document.querySelectorAll('.nav a');window.addEventListener('scroll',function(){var y=window.scrollY+120;var cur=sec[0];secs.forEach(function(id){var el=document.getElementById(id);if(el&&el.offsetTop<=y)cur=id;});nav.forEach(function(a){a.style.color=a.getAttribute('href')==='#'+cur?'#e6edf7':'#8a97ad';if(a.getAttribute('href')==='#'+cur)a.style.background='rgba(91,140,255,.14)';else a.style.background='';});});
+</script>
+</body>
+</html>
